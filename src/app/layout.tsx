@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import "./global.scss";
+import Header from "./components/Header";
+import Footer from "./components/Footer";
 
 export const metadata: Metadata = {
   title: "airbnb",
@@ -14,8 +16,9 @@ export default function RootLayout({
   return (
     <html lang="ko">
       <body>
-        layout<br/>
+        <Header />
         {children}
+        <Footer />
       </body>
     </html>
   );

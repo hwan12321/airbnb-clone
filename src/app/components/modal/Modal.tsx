@@ -1,30 +1,25 @@
 "use client";
 
-import { useState } from "react";
-import style from "./modal.scss";
+import Login from "./Login";
+import style from "./Modal.module.scss";
 
 type TModal = {
     text: string;
     isShowModal: boolean;
+    onClickCloseBtn: () => void;
 }
 
-const Modal = ({text, isShowModal}:TModal) => {
-
-    const [isOpen, setIsOpen] = useState(true);
-
-    const onClickCloseBtn = () => {
-        setIsOpen(false);
-    }
-
+const Modal = ({text, isShowModal, onClickCloseBtn}:TModal) => {
     return (
-        isOpen && (
+        isShowModal && (
             <div className={style.modal_wrap}>
                 <div className={style.modal_area}>
                     <div className={style.header}>
-                        <button type="button" onClick={onClickCloseBtn}>
+                        <button type="button" onClick={onClickCloseBtn} className={style.close_btn}>
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" aria-hidden="true" role="presentation" focusable="false" className={style.svg}><path d="m6 6 20 20M26 6 6 26"></path></svg>
                         </button>
                         {text}
+                        <Login />
                     </div>
                 </div>
             </div>

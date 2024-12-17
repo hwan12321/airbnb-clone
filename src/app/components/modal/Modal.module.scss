@@ -12,6 +12,7 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    min-width: 500px;
     background-color: #fff;
     border-radius: 6px;
     text-align: center;
@@ -20,12 +21,18 @@
 .header {
     line-height: 50px;
     border-bottom: #e6e6e6;
+    font-size: 15sx;
 }
 
 .close_btn {
     position: absolute;
-    left: 9x;
-    top: 9px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    left: 5px;
+    top: 5px;
+    width: 40px;
+    height: 40px;
     color: #222;
 
     .svg {

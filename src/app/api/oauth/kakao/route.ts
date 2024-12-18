@@ -31,16 +31,14 @@ export const GET = async (req:NextRequest, res:NextResponse) => {
         },
     })).json();
 
-    const userData:string[] = await executeQuery(`SELECT * FROM user WHERE KakaoId = ${response.id}`,[]) as any;
+    const userIdArray:number[] = await executeQuery(`SELECT * FROM user WHERE KakaoId = ${response.id}`,[]) as any;
 
-    if(userData.length === 0) {
+    if(userIdArray.length === 0) {
         await executeQuery(`INSERT INTO User(Name, profileImg, kakaoId) VALUES("${response.kakao_account.profile.nickname}", "${response.kakao_account.profile.profile_image_url}", ${response.id});`,[])
     }
-
-    const userId = (await executeQuery(`SELECT id FROM user WHERE KakaoId = ${response.id}`,[]) as number[])[0];
     
-    return NextResponse.json({accessToken: jwt.sign({ userId: userId }, JWT_ACCESS_TOKEN_KEY, {expiresIn: '30m'}),
-    refreshToken: jwt.sign({ userId: userId }, JWT_REFRESH_TOKEN_KEY, {expiresIn: '30m'}),
+    return NextResponse.json({accessToken: jwt.sign({ userId: userIdArray[0] }, JWT_ACCESS_TOKEN_KEY, {expiresIn: '30m'}),
+    refreshToken: jwt.sign({ userId: userIdArray[0] }, JWT_REFRESH_TOKEN_KEY, {expiresIn: '30m'}),
     name: response.kakao_account.profile.nickname,
     profileImage: response.kakao_account.profile.profile_image_url},
     { status: 200 });
